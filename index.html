@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Tony's pizza</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	</head>
+	<body ng-app="PizzaApp">
+		<div ng-controller="pizzaController">
+			<div class="container">
+				<h1> Tony's pizza </h1>
+				<h2> {{::model.title}} </h2>
+				
+				<h3> Topping search </h3>
+				<input type="text" class="form-control" ng-model="model.search">
+				
+				<div ng-hide="model.search">
+					Enter the search criteria
+				</div>
+				<div ng-show="model.search" ng-repeat="t in model.availableToppings | filter:model.search as results">
+					<span ng-click="addTopping(t)">{{t}}</span>			
+				</div>
+				<div class="alert alert-success" ng-show="model.showConfirmation && !model.search">
+					Topping added
+					<button type="button" ng-click="closeConfirmation()">close</a>
+				</div>
+
+				<div class="alert alert-danger" ng-show="model.search && results.length === 0">
+					No results.
+				</div>					
+				<div>
+					<div ng-show="model.toppings.length">
+						<h3>Selected Toppings</h3>
+					</div>
+					<div ng-repeat="t in model.toppings">
+						{{t}}
+					</div>
+			</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+		<script src="./app/app.js"></script>
+		<script src="./app/menuController.js"></script>
+	</body>
+</html>
